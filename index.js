@@ -63,10 +63,10 @@ ${decodedPubKey}
         
                 if(attachments.length) {
                   attachments.map(function(a) {
-                    console.log(a)
                     preSig += "--" + boundary + "\n"
                     preSig += `Content-Disposition: form-data; name="attachments"; filename="${a.originalname}"\n`
-                    preSig += `Content-Type: ${a.mimetype}\n\n\n` 
+                    preSig += `Content-Type: ${a.mimetype}\n\n`
+                    preSig += a.buffer.toString() + "\n"  
                 })
                 }
         
