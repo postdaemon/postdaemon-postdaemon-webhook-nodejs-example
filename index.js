@@ -153,7 +153,7 @@ ${decodedPubKey}
 
     }
 
-        res.status(200) // *
+        res.sendStatus(200) // *
 })
 
 app.listen(port, () => {
