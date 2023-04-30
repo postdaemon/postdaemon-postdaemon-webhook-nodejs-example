@@ -87,9 +87,18 @@ ${decodedPubKey}
                 preSig += body.from + "\n"
         
                 // To
-                preSig += "--" + boundary + "\n"
-                preSig += `Content-Disposition: form-data; name="to"\n\n`
-                preSig += body.to + "\n"
+                // If an array of to's place each address in own block
+                if(Array.isArray(body.to)) {
+                        body.to.map((t) => {
+                            preSig += "--" + boundary + "\n"
+                            preSig += `Content-Disposition: form-data; name="to"\n\n`
+                            preSig += t + "\n"
+                        })
+                } else {
+                        preSig += "--" + boundary + "\n"
+                        preSig += `Content-Disposition: form-data; name="to"\n\n`
+                        preSig += req.body.to + "\n"
+                }
         
                 // Return path
                 preSig += "--" + boundary + "\n"
@@ -100,16 +109,35 @@ ${decodedPubKey}
                 preSig += "--" + boundary + "\n"
                 preSig += `Content-Disposition: form-data; name="replyTo"\n\n`
                 preSig += body.replyTo + "\n"
-        
+                        
                 // Cc
-                preSig += "--" + boundary + "\n"
-                preSig += `Content-Disposition: form-data; name="cc"\n\n`
-                preSig += body.cc + "\n"
+                // If an array of cc's place each address in own block
+                if(Array.isArray(body.cc)) {
+                    body.to.map((cc) => {
+                        preSig += "--" + boundary + "\n"
+                        preSig += `Content-Disposition: form-data; name="cc"\n\n`
+                        preSig += cc + "\n"
+                    })
+                } else {
+                        preSig += "--" + boundary + "\n"
+                        preSig += `Content-Disposition: form-data; name="cc"\n\n`
+                        preSig += req.body.cc + "\n"
+                }
+    
         
                 // Bcc
-                preSig += "--" + boundary + "\n"
-                preSig += `Content-Disposition: form-data; name="bcc"\n\n`
-                preSig += body.bcc + "\n"
+                // If an array of bcc's place each address in own block
+                if(Array.isArray(body.bcc)) {
+                    body.to.map((bcc) => {
+                        preSig += "--" + boundary + "\n"
+                        preSig += `Content-Disposition: form-data; name="bcc"\n\n`
+                        preSig += bcc + "\n"
+                    })
+                } else {
+                        preSig += "--" + boundary + "\n"
+                        preSig += `Content-Disposition: form-data; name="bcc"\n\n`
+                        preSig += req.body.bcc + "\n"
+                }
         
                 // Date
                 preSig += "--" + boundary + "\n"
