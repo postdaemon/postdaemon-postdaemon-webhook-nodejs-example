@@ -12,7 +12,7 @@ const app = express()
 const port = 3000
 const upload = multer()
 
-const postdaemonWebhookKey = ""
+const postdaemonWebhookKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDae0nb+SINvHzZSV+a4Rh+VytH39qqe3nvZK9HkHzuN2cRxJBhFxrJF/S0gizJ2tRB5p8xQxR8YLIqeF9CwjuQmvUEd7pkSM+xJnKhA/S+WcLFopsQzC8ezt+7XMrITKdqoW7yTmQ/1ycWnKRby+qlFlrvQF51r+J2L0M8TI4vSwIDAQAB"
 
 app.use(express.urlencoded({ extended: true }))
 app.use(upload.array("attachments")) // PostDaemon post files to attacments
@@ -54,74 +54,79 @@ ${decodedPubKey}
         
                 // Format PostDaemon Webhook Signature
                 let preSig = ""
-                preSig += `Content-Type: ${contentType}\n`
-                preSig += `Event-Type: ${eventType}\n`
-                preSig += `Domain: ${domain}\n`
-                preSig += "PostDaemon-Signature: \n"
-                preSig += `Content-Length: ${req.header("Content-Length")}\n`
-                preSig += `Origin: ${req.headers.origin}\n\n\n`
+                preSig += `Content-Type: ${contentType}\r\n`
+                preSig += `Event-Type: ${eventType}\r\n`
+                preSig += `Domain: ${domain}\r\n`
+                preSig += "PostDaemon-Signature: \r\n"
+                preSig += `Content-Length: ${req.header("Content-Length")}\r\n`
+                preSig += `Origin: ${req.headers.origin}\r\n\r\n\r\n`
         
                 if(attachments.length) {
                   attachments.map(function(a) {
-                    preSig += "--" + boundary + "\n"
-                    preSig += `Content-Disposition: form-data; name="attachments"; filename="${a.originalname}"\n`
-                    preSig += `Content-Type: ${a.mimetype}\n\n`
-                    preSig += a.buffer.toString() + "\n"  
+                    preSig += "--" + boundary + "\r\n"
+                    preSig += `Content-Disposition: form-data; name="attachments"; filename="${a.originalname}"\r\n`
+                    preSig += `Content-Type: ${a.mimetype}\r\n\r\n`
+                    preSig += a.buffer.toString() + "\r\n"  
                 })
                 }
         
         
                 // Id 
-                preSig += "--" + boundary + "\n"
-                preSig += `Content-Disposition: form-data; name="id"\n\n`
-                preSig += body.id + "\n"
+                preSig += "--" + boundary + "\r\n"
+                preSig += `Content-Disposition: form-data; name="id"\r\n\r\n`
+                preSig += body.id + "\r\n"
         
                 // Subject
-                preSig += "--" + boundary + "\n"
-                preSig += `Content-Disposition: form-data; name="subject"\n\n`
-                preSig += body.subject + "\n"
+                preSig += "--" + boundary + "\r\n"
+                preSig += `Content-Disposition: form-data; name="subject"\r\n\r\n`
+                preSig += body.subject + "\r\n"
         
                 // From
-                preSig += "--" + boundary + "\n"
-                preSig += `Content-Disposition: form-data; name="from"\n\n`
-                preSig += body.from + "\n"
+                preSig += "--" + boundary + "\r\n"
+                preSig += `Content-Disposition: form-data; name="from"\r\n\r\n`
+                preSig += body.from + "\r\n"
         
                 // To
                 // If an array of to's place each address in own block
                 if(Array.isArray(body.to)) {
                         body.to.map((t) => {
-                            preSig += "--" + boundary + "\n"
-                            preSig += `Content-Disposition: form-data; name="to"\n\n`
-                            preSig += t + "\n"
+                            preSig += "--" + boundary + "\r\n"
+                            preSig += `Content-Disposition: form-data; name="to"\r\n\r\n`
+                            preSig += t + "\r\n"
                         })
                 } else {
-                        preSig += "--" + boundary + "\n"
-                        preSig += `Content-Disposition: form-data; name="to"\n\n`
-                        preSig += req.body.to + "\n"
+                        preSig += "--" + boundary + "\r\n"
+                        preSig += `Content-Disposition: form-data; name="to"\r\n\r\n`
+                        preSig += req.body.to + "\r\n"
                 }
+
+                // Receiver (With multiple to's the receiver field informs of which receiver the event correlates to)
+                preSig += "--" + boundary + "\r\n"
+                preSig += `Content-Disposition: form-data; name="receiver"\r\n\r\n`
+                preSig += body.receiver + "\r\n"
         
                 // Return path
-                preSig += "--" + boundary + "\n"
-                preSig += `Content-Disposition: form-data; name="returnPath"\n\n`
-                preSig += body.returnPath + "\n"
+                preSig += "--" + boundary + "\r\n"
+                preSig += `Content-Disposition: form-data; name="returnPath"\r\n\r\n`
+                preSig += body.returnPath + "\r\n"
         
                 // Reply to
-                preSig += "--" + boundary + "\n"
-                preSig += `Content-Disposition: form-data; name="replyTo"\n\n`
-                preSig += body.replyTo + "\n"
+                preSig += "--" + boundary + "\r\n"
+                preSig += `Content-Disposition: form-data; name="replyTo"\r\n\r\n`
+                preSig += body.replyTo + "\r\n"
                         
                 // Cc
                 // If an array of cc's place each address in own block
                 if(Array.isArray(body.cc)) {
                     body.to.map((cc) => {
-                        preSig += "--" + boundary + "\n"
-                        preSig += `Content-Disposition: form-data; name="cc"\n\n`
-                        preSig += cc + "\n"
+                        preSig += "--" + boundary + "\r\n"
+                        preSig += `Content-Disposition: form-data; name="cc"\r\n\r\n`
+                        preSig += cc + "\r\n"
                     })
                 } else {
-                        preSig += "--" + boundary + "\n"
-                        preSig += `Content-Disposition: form-data; name="cc"\n\n`
-                        preSig += req.body.cc + "\n"
+                        preSig += "--" + boundary + "\r\n"
+                        preSig += `Content-Disposition: form-data; name="cc"\r\n\r\n`
+                        preSig += req.body.cc + "\r\n"
                 }
     
         
@@ -129,51 +134,51 @@ ${decodedPubKey}
                 // If an array of bcc's place each address in own block
                 if(Array.isArray(body.bcc)) {
                     body.to.map((bcc) => {
-                        preSig += "--" + boundary + "\n"
-                        preSig += `Content-Disposition: form-data; name="bcc"\n\n`
-                        preSig += bcc + "\n"
+                        preSig += "--" + boundary + "\r\n"
+                        preSig += `Content-Disposition: form-data; name="bcc"\r\n\r\n`
+                        preSig += bcc + "\r\n"
                     })
                 } else {
-                        preSig += "--" + boundary + "\n"
-                        preSig += `Content-Disposition: form-data; name="bcc"\n\n`
-                        preSig += req.body.bcc + "\n"
+                        preSig += "--" + boundary + "\r\n"
+                        preSig += `Content-Disposition: form-data; name="bcc"\r\n\r\n`
+                        preSig += req.body.bcc + "\r\n"
                 }
         
                 // Date
-                preSig += "--" + boundary + "\n"
-                preSig += `Content-Disposition: form-data; name="date"\n\n`
-                preSig += body.date + "\n"
+                preSig += "--" + boundary + "\r\n"
+                preSig += `Content-Disposition: form-data; name="date"\r\n\r\n`
+                preSig += body.date + "\r\n"
         
                 // Status
-                preSig += "--" + boundary + "\n"
-                preSig += `Content-Disposition: form-data; name="status"\n\n`
-                preSig += body.status + "\n"
+                preSig += "--" + boundary + "\r\n"
+                preSig += `Content-Disposition: form-data; name="status"\r\n\r\n`
+                preSig += body.status + "\r\n"
         
                 // Status description
-                preSig += "--" + boundary + "\n"
-                preSig += `Content-Disposition: form-data; name="statusDescription"\n\n`
-                preSig += body.statusDescription + "\n"
+                preSig += "--" + boundary + "\r\n"
+                preSig += `Content-Disposition: form-data; name="statusDescription"\r\n\r\n`
+                preSig += body.statusDescription + "\r\n"
         
                 // Outbound
-                preSig += "--" + boundary + "\n"
-                preSig += `Content-Disposition: form-data; name="outbound"\n\n`
-                preSig += body.outbound + "\n"
+                preSig += "--" + boundary + "\r\n"
+                preSig += `Content-Disposition: form-data; name="outbound"\r\n\r\n`
+                preSig += body.outbound + "\r\n"
         
                 // Sending IP
-                preSig += "--" + boundary + "\n"
-                preSig += `Content-Disposition: form-data; name="sendingIp"\n\n`
-                preSig += body.sendingIp + "\n"
+                preSig += "--" + boundary + "\r\n"
+                preSig += `Content-Disposition: form-data; name="sendingIp"\r\n\r\n`
+                preSig += body.sendingIp + "\r\n"
         
                 // Eml
-                preSig += "--" + boundary + "\n"
-                preSig += `Content-Disposition: form-data; name="eml"\n\n`
-                preSig += body.eml + "\n"
+                preSig += "--" + boundary + "\r\n"
+                preSig += `Content-Disposition: form-data; name="eml"\r\n\r\n`
+                preSig += body.eml + "\r\n"
         
                 // Text
-                preSig += "--" + boundary + "\n"
-                preSig += `Content-Disposition: form-data; name="text"\n\n`
-                preSig += body.text + "\n"
-                preSig += "--" + boundary + "--\n"
+                preSig += "--" + boundary + "\r\n"
+                preSig += `Content-Disposition: form-data; name="text"\r\n\r\n`
+                preSig += body.text + "\r\n"
+                preSig += "--" + boundary + "--\r\n"
         
                 // Complete lets log
                 console.log(preSig)
