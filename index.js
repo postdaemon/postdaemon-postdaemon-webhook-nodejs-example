@@ -74,77 +74,77 @@ ${decodedPubKey}
                 // Id 
                 preSig += "--" + boundary + "\n"
                 preSig += `Content-Disposition: form-data; name="id"\n\n`
-                preSig += req.body.id + "\n"
+                preSig += body.id + "\n"
         
                 // Subject
                 preSig += "--" + boundary + "\n"
                 preSig += `Content-Disposition: form-data; name="subject"\n\n`
-                preSig += req.body.subject + "\n"
+                preSig += body.subject + "\n"
         
                 // From
                 preSig += "--" + boundary + "\n"
                 preSig += `Content-Disposition: form-data; name="from"\n\n`
-                preSig += req.body.from + "\n"
+                preSig += body.from + "\n"
         
                 // To
                 preSig += "--" + boundary + "\n"
                 preSig += `Content-Disposition: form-data; name="to"\n\n`
-                preSig += req.body.to + "\n"
+                preSig += body.to + "\n"
         
                 // Return path
                 preSig += "--" + boundary + "\n"
                 preSig += `Content-Disposition: form-data; name="returnPath"\n\n`
-                preSig += req.body.returnPath + "\n"
+                preSig += body.returnPath + "\n"
         
                 // Reply to
                 preSig += "--" + boundary + "\n"
                 preSig += `Content-Disposition: form-data; name="replyTo"\n\n`
-                preSig += req.body.replyTo + "\n"
+                preSig += body.replyTo + "\n"
         
                 // Cc
                 preSig += "--" + boundary + "\n"
                 preSig += `Content-Disposition: form-data; name="cc"\n\n`
-                preSig += req.body.cc + "\n"
+                preSig += body.cc + "\n"
         
                 // Bcc
                 preSig += "--" + boundary + "\n"
                 preSig += `Content-Disposition: form-data; name="bcc"\n\n`
-                preSig += req.body.bcc + "\n"
+                preSig += body.bcc + "\n"
         
                 // Date
                 preSig += "--" + boundary + "\n"
                 preSig += `Content-Disposition: form-data; name="date"\n\n`
-                preSig += req.body.date + "\n"
+                preSig += body.date + "\n"
         
                 // Status
                 preSig += "--" + boundary + "\n"
                 preSig += `Content-Disposition: form-data; name="status"\n\n`
-                preSig += req.body.status + "\n"
+                preSig += body.status + "\n"
         
                 // Status description
                 preSig += "--" + boundary + "\n"
                 preSig += `Content-Disposition: form-data; name="statusDescription"\n\n`
-                preSig += req.body.statusDescription + "\n"
+                preSig += body.statusDescription + "\n"
         
                 // Outbound
                 preSig += "--" + boundary + "\n"
                 preSig += `Content-Disposition: form-data; name="outbound"\n\n`
-                preSig += req.body.outbound + "\n"
+                preSig += body.outbound + "\n"
         
                 // Sending IP
                 preSig += "--" + boundary + "\n"
                 preSig += `Content-Disposition: form-data; name="sendingIp"\n\n`
-                preSig += req.body.sendingIp + "\n"
+                preSig += body.sendingIp + "\n"
         
                 // Eml
                 preSig += "--" + boundary + "\n"
                 preSig += `Content-Disposition: form-data; name="eml"\n\n`
-                preSig += req.body.eml + "\n"
+                preSig += body.eml + "\n"
         
                 // Text
                 preSig += "--" + boundary + "\n"
                 preSig += `Content-Disposition: form-data; name="text"\n\n`
-                preSig += req.body.text + "\n"
+                preSig += body.text + "\n"
                 preSig += "--" + boundary + "--\n"
         
                 // Complete lets log
