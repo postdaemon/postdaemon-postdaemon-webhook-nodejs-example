@@ -1,7 +1,7 @@
 ## PostDaemon Webhook Node.JS Example
 If your domain has secure webhooks enabled please populate your postdaemonWebhookKey either through environment variable and or secret.
 
-## To learn more about or webhook functionality
+## To learn more about our webhook functionality
 https://postdaemon.com/docs
 
 Logging /wh example, checking signature
@@ -23,10 +23,7 @@ example.postdaemonsandbox.com
   outbound: 'false',
   sendingIp: '66.163.184.148',
   eml: 'example.postdaemonsandbox.com/example/eml/inbound/2023430424.rzUyCxqwovMuYtlsPrEqPpfognYmGlfkMjNi9h1gDfWeMdHcGbZaEZVYXX3W4VNU2TSS0RDQPP1OIN9M9L0KEJ3I0H2GEF3E9D3C9B3A297827363504130211qzVyDx@example.postdaemon.net.eml',
-  text: ' \n' +
-    '\n' +
-    '   ----- Forwarded Message ----- From: Alex <diagraph@example.com>To: Testuit Info <test@example.postdaemonsandbox.dev>Sent: Saturday, April 29, 2023, 11:51:11 PM EDTSubject: testing pdf\n' +
-    ' test  \n'
+  text: 'Hello world'
 }
 {
   fieldname: 'attachments',
