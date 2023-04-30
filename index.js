@@ -154,9 +154,11 @@ ${decodedPubKey}
                 let isValid = crypto.verify(crypto.RSASSA_PKCS1_SHA256, preSig, key, decodedSig)
         
                 console.log("SIGNATURE VALID:" + isValid)
+                break
             }
             case "smtp.unsubscribe":
                 // tmi
+                break
             default:
                 console.log("Invalid event.")
     }
