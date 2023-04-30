@@ -44,9 +44,9 @@ app.post('/wh', (req, res) => {
                 let decodedPubKey =  Buffer.from(postdaemonWebhookKey,'base64').toString('base64')
                 let key = crypto.createPublicKey({
                          key: `
-        -----BEGIN PUBLIC KEY-----
-        ${decodedPubKey}
-        -----END PUBLIC KEY-----
+-----BEGIN PUBLIC KEY-----
+${decodedPubKey}
+-----END PUBLIC KEY-----
         `,
                          format: 'pem'
                  })
