@@ -11,10 +11,10 @@ example.postdaemonsandbox.com
 [Object: null prototype] {
   id: '2023430424.rzUyCxqwovMuYtlsPrEqPpfognYmGlfkMjNi9h1gDfWeMdHcGbZaEZVYXX3W4VNU2TSS0RDQPP1OIN9M9L0KEJ3I0H2GEF3E9D3C9B3A297827363504130211qzVyDx@example.postdaemon.net',
   subject: 'Fw: testing pdf',
-  from: 'Alex Padula <diagraphic@yahoo.com>',
-  to: 'Testuit Info <test@example.postdaemonsandbox.com>',
+  from: 'Alex <diagraph@example.com>',
+  to: 'Test <test@example.postdaemonsandbox.com>',
   returnPath: '',
-  replyTo: 'In- <715920114.1954081.1682826671020@mail.yahoo.com>',
+  replyTo: 'In- <715920114.1954081.1682826671020@mail.example.com>',
   cc: '',
   bcc: '',
   date: 'Sun, 30 Apr 2023 00:02:00 -0400 (EDT)',
@@ -25,7 +25,7 @@ example.postdaemonsandbox.com
   eml: 'example.postdaemonsandbox.com/example/eml/inbound/2023430424.rzUyCxqwovMuYtlsPrEqPpfognYmGlfkMjNi9h1gDfWeMdHcGbZaEZVYXX3W4VNU2TSS0RDQPP1OIN9M9L0KEJ3I0H2GEF3E9D3C9B3A297827363504130211qzVyDx@example.postdaemon.net.eml',
   text: ' \n' +
     '\n' +
-    '   ----- Forwarded Message ----- From: Alex Padula <diagraphic@yahoo.com>To: Testuit Info <test@testuit.postdaemonsandbox.dev>Sent: Saturday, April 29, 2023, 11:51:11 PM EDTSubject: testing pdf\n' +
+    '   ----- Forwarded Message ----- From: Alex <diagraph@example.com>To: Testuit Info <test@example.postdaemonsandbox.dev>Sent: Saturday, April 29, 2023, 11:51:11 PM EDTSubject: testing pdf\n' +
     ' test  \n'
 }
 {
@@ -60,7 +60,7 @@ Fw: testing pdf
 --66e97d07be73e958a629d68dcef0a9e0b323ab73470e8b6f62b446036f9d
 Content-Disposition: form-data; name="from"
 
-Alex Padula <diagraph@example.com>
+Alex <diagraph@example.com>
 --66e97d07be73e958a629d68dcef0a9e0b323ab73470e8b6f62b446036f9d
 Content-Disposition: form-data; name="to"
 
