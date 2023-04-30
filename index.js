@@ -6,7 +6,6 @@
 
 import express from "express"
 import crypto from "crypto"
-import { exit } from "process"
 import multer from "multer"
 
 const app = express()
@@ -16,15 +15,15 @@ const upload = multer()
 const postdaemonWebhookKey = ""
 
 app.use(express.urlencoded({ extended: true }))
-app.use(upload.array("attachments")); 
+app.use(upload.array("attachments")) // PostDaemon post files to attacments
 
 app.post('/wh', (req, res) => {
-    let body = req.body
+    let body = req.body // multipart request body
     let eventType = req.header("Event-Type")  // event type 
     let domain = req.header("Domain") // mail domain
     let signature = req.header("PostDaemon-Signature") // will not be supplied if domain is not using a secure webhook
     let contentType = req.header("Content-Type")
-    let attachments = req.files
+    let attachments = req.files // attachments
 
     console.log(eventType) // event type 
     console.log(domain) // mail domain
@@ -52,6 +51,8 @@ ${decodedPubKey}
                  format: 'pem'
          })
 
+
+        // Format PostDaemon Webhook Signature
         let preSig = ""
         preSig += `Content-Type: ${contentType}\n`
         preSig += `Event-Type: ${eventType}\n`
@@ -146,9 +147,12 @@ ${decodedPubKey}
         preSig += req.body.text + "\n"
         preSig += "--" + boundary + "--\n"
 
+        // Complete lets log
         console.log(preSig)
 
+        // Check signature
         let isValid = crypto.verify(crypto.RSASSA_PKCS1_SHA256, preSig, key, decodedSig)
+
         console.log("SIGNATURE VALID:" + isValid)
 
     }
